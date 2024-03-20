@@ -28,7 +28,7 @@ Compile and fit the model and then predict
 ### Register Number: 212223240182
 ## Library Importing:
 
-
+```
 import numpy as np
 from tensorflow import keras
 from tensorflow.keras import layers
@@ -39,9 +39,9 @@ from tensorflow.keras import utils
 import pandas as pd
 from sklearn.metrics import classification_report,confusion_matrix
 from tensorflow.keras.preprocessing import image
-
+```
 ## Shaping:
-
+```
 (X_train, y_train), (X_test, y_test) = mnist.load_data()
 X_train.shape
 X_test.shape
@@ -53,9 +53,9 @@ X_train.min()
 X_train.max()
 X_train_scaled = X_train/255.0
 X_test_scaled = X_test/255.0
-
+```
 ## One Hot Encoding:
-
+```
 X_train_scaled.min()
 X_train_scaled.max()
 y_train[0]
@@ -64,9 +64,9 @@ y_test_onehot = utils.to_categorical(y_test,10)
 
 X_train_scaled = X_train_scaled.reshape(-1,28,28,1)
 X_test_scaled = X_test_scaled.reshape(-1,28,28,1)
-
+```
 ## CNN Model:
-
+```
 i.add(layers.Input(shape=(28,28,1)))
 i.add(layers.Conv2D(filters=32,kernel_size=(3,3)))
 i.add(layers.MaxPool2D(pool_size=(2,2)))
@@ -76,9 +76,9 @@ i.add(layers.Dense(32,activation='relu'))
 i.add(layers.Dense(10,activation='softmax'))
 i.compile(loss='categorical_crossentropy',optimizer='adam',metrics='accuracy')
 i.fit(X_train_scaled ,y_train_onehot, epochs=5,batch_size=128, validation_data=(X_test_scaled,y_test_onehot))
-
+```
 ## Metrics:
-
+```
 import pandas as pd
 metrics = pd.DataFrame(i.history.history)
 metrics.head()
@@ -91,9 +91,9 @@ x_test_predictions = np.argmax(i.predict(X_test_scaled), axis=1)
 print(confusion_matrix(y_test,x_test_predictions))
 
 print(classification_report(y_test,x_test_predictions))
-
+```
 ## Prediction:
-
+```
 
 img = image.load_img('/content/download.png')
 type(img)
@@ -120,7 +120,7 @@ x_single_prediction = np.argmax(
     i.predict(img_28_gray_inverted_scaled.reshape(1,28,28,1)),
      axis=1)
 
-
+```
 ## OUTPUT
 
 ### Training Loss, Validation Loss Vs Iteration Plot
